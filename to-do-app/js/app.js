@@ -1,4 +1,4 @@
-// Selecionando elementos do DOM
+
 const taskInput = document.getElementById('task-input');
 const addTaskBtn = document.getElementById('add-task-btn');
 const taskList = document.getElementById('task-list');
@@ -6,13 +6,13 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 
 let tasks = [];
 
-// Carregar tarefas do LocalStorage ao iniciar
+
 window.addEventListener('DOMContentLoaded', () => {
     tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     renderTasks();
 });
 
-// Adicionar nova tarefa
+// add
 addTaskBtn.addEventListener('click', () => {
     const taskText = taskInput.value.trim();
     if(taskText === '') return;
@@ -29,7 +29,6 @@ addTaskBtn.addEventListener('click', () => {
     taskInput.value = '';
 });
 
-// Renderizar tarefas na tela
 function renderTasks(filter = 'all') {
     taskList.innerHTML = '';
 
@@ -57,12 +56,12 @@ function renderTasks(filter = 'all') {
     });
 }
 
-// Salvar tarefas no LocalStorage
+// save
 function saveTasks() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-// Ações nas tarefas (editar, completar, deletar)
+
 taskList.addEventListener('click', (e) => {
     const id = e.target.dataset.id;
     if(e.target.classList.contains('edit')) {
@@ -74,7 +73,7 @@ taskList.addEventListener('click', (e) => {
     }
 });
 
-// Editar tarefa
+// edit
 function editTask(id) {
     const task = tasks.find(t => t.id == id);
     const newText = prompt('Editar tarefa:', task.text);
@@ -85,7 +84,7 @@ function editTask(id) {
     }
 }
 
-// Marcar/desmarcar tarefa como completa
+
 function toggleCompleteTask(id) {
     const task = tasks.find(t => t.id == id);
     task.completed = !task.completed;
@@ -93,14 +92,13 @@ function toggleCompleteTask(id) {
     renderTasks();
 }
 
-// Deletar tarefa
+// delete
 function deleteTask(id) {
     tasks = tasks.filter(t => t.id != id);
     saveTasks();
     renderTasks();
 }
 
-// Filtrar tarefas
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelector('.filter-btn.active').classList.remove('active');
